@@ -10,7 +10,7 @@ import com.intellij.psi.PsiWhiteSpace
 import com.intellij.psi.search.FileTypeIndex
 import com.intellij.psi.search.GlobalSearchScope
 import com.intellij.psi.util.PsiTreeUtil
-import com.xxxlin.jsgf.psi.JsgfExp
+import com.xxxlin.jsgf.psi.JsgfRule
 import java.util.*
 
 object JsgfUtil {
@@ -22,8 +22,8 @@ object JsgfUtil {
      * @param key     to check
      * @return matching properties
      */
-    fun findProperties(project: Project, key: String): List<JsgfExp> {
-        val result = ArrayList<JsgfExp>()
+    fun findProperties(project: Project, key: String): List<JsgfRule> {
+        val result = ArrayList<JsgfRule>()
         val virtualFiles =
             FileTypeIndex.getFiles(JsgfFileType.INSTANCE, GlobalSearchScope.allScope(project))
         for (virtualFile in virtualFiles) {
@@ -31,10 +31,10 @@ object JsgfUtil {
             if (simpleFile != null) {
                 val properties = PsiTreeUtil.getChildrenOfType(
                     simpleFile,
-                    JsgfExp::class.java
+                    JsgfRule::class.java
                 )
                 if (properties != null) {
-                    for (property: JsgfExp in properties) {
+                    for (property: JsgfRule in properties) {
                         if (key == property.getKey()) {
                             result.add(property)
                         }
@@ -45,21 +45,21 @@ object JsgfUtil {
         return result
     }
 
-    fun findProperties(project: Project): List<JsgfExp> {
-        val result = ArrayList<JsgfExp>()
+    fun findProperties(project: Project): List<JsgfRule> {
+        val result = ArrayList<JsgfRule>()
         val virtualFiles =
             FileTypeIndex.getFiles(JsgfFileType.INSTANCE, GlobalSearchScope.allScope(project))
         for (virtualFile in virtualFiles) {
             val simpleFile = PsiManager.getInstance(project).findFile(virtualFile!!) as JsgfFile?
             if (simpleFile != null) {
-                val properties = PsiTreeUtil.getChildrenOfType(simpleFile, JsgfExp::class.java) ?: return result
+                val properties = PsiTreeUtil.getChildrenOfType(simpleFile, JsgfRule::class.java) ?: return result
                 result.addAll(properties)
             }
         }
         return result
     }
 
-    fun findDocumentationComment(property: JsgfExp): String {
+    fun findDocumentationComment(property: JsgfRule): String {
         val result: MutableList<String> = LinkedList()
         var element: PsiElement = property.prevSibling
         while (element is PsiComment || element is PsiWhiteSpace) {

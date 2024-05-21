@@ -17,45 +17,31 @@ import com.intellij.psi.TokenType;
 %eof}
 
 
-DOC_VERSION=(v|V)[0-9\.]*
-DOC_ENCODE=[a-z_A-Z\-0-9]*
-JSGF_LANGUAGE=[a-zA-Z0-9_\.\-]*
-GRAMMAR_NAME=[a-z_A-Z\-0-9\.]*
+VERSION=(V)[0-9][0-9\.]*[0-9]
+CHAR_ENCODING=[a-z_A-Z\-0-9]*
+LOCALE=[a-zA-Z0-9_\.\-]*
 
-VARIABLE_NAME="<"[a-z_A-Z\-0-9]*">"
+// 其实是java包名
+GRAMMAR_NAME=[a-zA-Z_]+(\.[a-zA-Z0-9_$]+)*
+IMPORT_PACKAGE_NAME=[a-zA-Z_]+(\.([a-zA-Z0-9_$]+|\*))*
+
+RULE_NAME="<"[^\ <>]+">"
 VARIABLE_VALUE=[^;\ ]([^;]|\n)*
-SLOP_STRING_LITERAL=[^\ \|\;\(\)\[\]\"\<\>\n] [^\|\;\(\)\[\]\"\<\>\n]* [^\ \|\;\(\)\[\]\"\<\>\n]?
+SLOP_STRING_LITERAL=[^\ \|\;\(\)\[\]\"\<\>\n\+\*] [^\|\;\(\)\[\]\"\<\>\n\+\*]* [^\ \|\;\(\)\[\]\"\<\>\n\+\*]?
 STRING=\"[^\r\n\"]*\"
-LABEL_STRING=\"[^\r\n\"\ ]*\"
-
-
-
-//characters=('([^'\\]|\\.)*'|\"([^\"\\]|\\\"|\\\'|\\)*\")"
-characters=[^\r\n]*
-
-
 
 CRLF=\R
-//comment=("#"|"//")[^\r\n]*
-FIRST_VALUE_CHARACTER=[^ \n\f\\] | "\\"{CRLF} | "\\".
-VALUE_CHARACTER=[^\n\f\\] | "\\"{CRLF} | "\\".
-SEPARATOR=[=]
-KEY_CHARACTER=[^:=\ \n\t\f\\] | "\\ "
 WHITE_SPACE=\s+
-
-exp="(".+")"
-
 LINE_COMMENT=("//").*
 BLOCK_COMMENT="/*"([^]|\n)*"*/"
-op_eq="="
-// 槽位文本
-slot_text=[^\r\n\|\"\(\)\<\>\[\]\;]*
 
 
 
 %state state_jsgf
 %state state_jsgf_encode
 %state state_grammar
+%state state_import
+
 %state state_exp
 %state state_exp_value
 %state state_exp_value_start
@@ -71,18 +57,23 @@ slot_text=[^\r\n\|\"\(\)\<\>\[\]\;]*
 %%
 
 // #JSGF V1.0 utf-8 en;
-<YYINITIAL> "#JSGF" { yybegin(state_jsgf); return JsgfTypes.KEYWORD; }
+<YYINITIAL> "#JSGF " { yybegin(state_jsgf); yypushback(1); return JsgfTypes.KEYWORD; }
 <state_jsgf> " " { return TokenType.WHITE_SPACE; }
-<state_jsgf> {DOC_VERSION} { return JsgfTypes.DOC_VERSION; }
-<state_jsgf> {DOC_ENCODE} { yybegin(state_jsgf_encode); return JsgfTypes.DOC_ENCODE; }
-<state_jsgf_encode> {JSGF_LANGUAGE} { return JsgfTypes.JSGF_LANGUAGE; }
+<state_jsgf> {VERSION} { return JsgfTypes.VERSION; }
+<state_jsgf> {CHAR_ENCODING} { yybegin(state_jsgf_encode); return JsgfTypes.CHAR_ENCODING; }
+<state_jsgf_encode> {LOCALE} { return JsgfTypes.LOCALE; }
 <state_jsgf_encode> ";" { yybegin(YYINITIAL); return JsgfTypes.SEMICOLON;}
 
 // grammar sampleTag;
-<YYINITIAL> "grammar" { yybegin(state_grammar); return JsgfTypes.KEYWORD; }
+<YYINITIAL> "grammar " { yybegin(state_grammar); yypushback(1); return JsgfTypes.KEYWORD; }
 <state_grammar> {GRAMMAR_NAME} { return JsgfTypes.GRAMMAR_NAME; }
 <state_grammar> ";" { yybegin(YYINITIAL); return JsgfTypes.SEMICOLON;}
 
+// import <fullyQualifiedRuleName>;
+// import <fullGrammarName.*>;
+<YYINITIAL> "import " { yybegin(state_import); yypushback(1); return JsgfTypes.KEYWORD; }
+<state_import> "<"{IMPORT_PACKAGE_NAME}">" { return JsgfTypes.IMPORT_PACKAGE_NAME;}
+<state_import> ";" { yybegin(YYINITIAL); return JsgfTypes.SEMICOLON;}
 
 // 空行
 {CRLF}({CRLF})+ { return TokenType.WHITE_SPACE; }
@@ -96,16 +87,18 @@ slot_text=[^\r\n\|\"\(\)\<\>\[\]\;]*
 
 // 表达式
 <YYINITIAL> "public" { yybegin(state_exp); return JsgfTypes.KEYWORD; }
-<YYINITIAL, state_exp> {VARIABLE_NAME} { yybegin(state_exp); return JsgfTypes.VARIABLE_NAME; }
+<YYINITIAL, state_exp> {RULE_NAME} { yybegin(state_exp); return JsgfTypes.RULE_NAME; }
 <state_exp> "=" { yybegin(state_exp_value); return JsgfTypes.OP_EQ; }
 <state_exp_value> "|" { return JsgfTypes.OP_OR; }
 <state_exp_value> "(" { return JsgfTypes.LEFT_PAREN; }
 <state_exp_value> ")" { return JsgfTypes.RIGHT_PAREN; }
 <state_exp_value> "[" { return JsgfTypes.LEFT_BRACKET; }
 <state_exp_value> "]" { return JsgfTypes.RIGHT_BRACKET; }
+<state_exp_value> "+" { return JsgfTypes.OP_ONEMORE; }
+<state_exp_value> "*" { return JsgfTypes.OP_ZEROMORE; }
 <state_exp_value> {SLOP_STRING_LITERAL} { return JsgfTypes.SLOP_STRING_LITERAL; }
-<state_exp_value> {LABEL_STRING} { return JsgfTypes.LABEL_STRING; }
-<state_exp_value> {VARIABLE_NAME} { return JsgfTypes.VARIABLE_NAME; }
+<state_exp_value> {STRING} { return JsgfTypes.LABEL_STRING; }
+<state_exp_value> {RULE_NAME} { return JsgfTypes.RULE_NAME; }
 <state_exp_value> ";" { yybegin(YYINITIAL); return JsgfTypes.SEMICOLON; }
 
 

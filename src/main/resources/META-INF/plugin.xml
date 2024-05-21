@@ -26,6 +26,7 @@
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
     <extensions defaultExtensionNs="com.intellij">
         <!-- 定义语言 -->
+        <!-- Jsgf文件 https://www.w3.org/TR/jsgf/ -->
         <fileType
                 name="Jsgf File"
                 implementationClass="com.xxxlin.jsgf.JsgfFileType"

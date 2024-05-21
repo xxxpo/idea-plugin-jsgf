@@ -5,7 +5,7 @@ import com.intellij.codeInsight.lookup.LookupElementBuilder
 import com.intellij.patterns.PlatformPatterns
 import com.intellij.psi.PsiElement
 import com.intellij.util.ProcessingContext
-import com.xxxlin.jsgf.psi.JsgfExp
+import com.xxxlin.jsgf.psi.JsgfRule
 import com.xxxlin.jsgf.psi.JsgfTypes
 
 /**
@@ -39,13 +39,13 @@ class JsgfCompletionContributor : CompletionContributor() {
     }
 
     private fun find(e: PsiElement, result: MutableList<String>) {
-        if (e is JsgfExp) {
+        if (e is JsgfRule) {
             val key = e.key
             if (key != null) {
                 result.add(key)
             }
         }
-        if (e == JsgfTypes.VARIABLE_NAME) {
+        if (e == JsgfTypes.RULE_NAME) {
             result.add(e.node.text)
         }
         e.children.forEach {
