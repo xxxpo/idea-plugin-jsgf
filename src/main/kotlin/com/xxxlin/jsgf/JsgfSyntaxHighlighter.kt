@@ -22,6 +22,7 @@ object JsgfSyntaxHighlighter : SyntaxHighlighterBase() {
     private val key_string = arrayOf(createTextAttributesKey("string", DefaultLanguageHighlighterColors.STRING))
     private val key_keyword = arrayOf(createTextAttributesKey("keyword", DefaultLanguageHighlighterColors.KEYWORD))
     private val key_label = arrayOf(createTextAttributesKey("label", DefaultLanguageHighlighterColors.LABEL))
+    private val key_constant = arrayOf(createTextAttributesKey("constant", DefaultLanguageHighlighterColors.CONSTANT))
     private val key_text = arrayOf(createTextAttributesKey("text", HighlighterColors.TEXT))
     // 圆括号
     private val key_parentheses = arrayOf(createTextAttributesKey("parentheses", DefaultLanguageHighlighterColors.PARENTHESES))
@@ -29,6 +30,7 @@ object JsgfSyntaxHighlighter : SyntaxHighlighterBase() {
     private val key_global_variable = arrayOf(createTextAttributesKey("global_variable", DefaultLanguageHighlighterColors.GLOBAL_VARIABLE))
     private val key_function_declaration = arrayOf(createTextAttributesKey("function_declaration", DefaultLanguageHighlighterColors.FUNCTION_DECLARATION))
     private val key_number = arrayOf(createTextAttributesKey("number", DefaultLanguageHighlighterColors.NUMBER))
+    private val key_parameter = arrayOf(createTextAttributesKey("parameter", DefaultLanguageHighlighterColors.PARAMETER))
 
     override fun getHighlightingLexer(): Lexer {
         return JsgfLexerAdapter()
@@ -67,6 +69,9 @@ object JsgfSyntaxHighlighter : SyntaxHighlighterBase() {
         }
         if (tokenType == JsgfTypes.SEMICOLON) {
             return key_text
+        }
+        if(tokenType == JsgfTypes.WEIGHTS) {
+            return key_constant
         }
         return EMPTY_KEYS
     }

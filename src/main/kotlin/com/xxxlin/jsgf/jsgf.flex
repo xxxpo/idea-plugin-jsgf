@@ -27,7 +27,9 @@ IMPORT_PACKAGE_NAME=[a-zA-Z_]+(\.([a-zA-Z0-9_$]+|\*))*
 
 RULE_NAME="<"[^\ <>]+">"
 VARIABLE_VALUE=[^;\ ]([^;]|\n)*
-SLOP_STRING_LITERAL=[^\ \|\;\(\)\[\]\"\<\>\n\+\*] [^\|\;\(\)\[\]\"\<\>\n\+\*]* [^\ \|\;\(\)\[\]\"\<\>\n\+\*]?
+WEIGHTS="/"" "*(0|(0\.[0-9]+)|([1-9]+("."[0-9]+)?))" "*"/"
+
+SLOP_STRING_LITERAL=[^\ \|\;\(\)\[\]\"\<\>\n\+\*/] [^\|\;\(\)\[\]\"\<\>\n\+\*/]* [^\ \|\;\(\)\[\]\"\<\>\n\+\*/]?
 STRING=\"[^\r\n\"]*\"
 
 CRLF=\R
@@ -99,6 +101,7 @@ BLOCK_COMMENT="/*"([^]|\n)*"*/"
 <state_exp_value> {SLOP_STRING_LITERAL} { return JsgfTypes.SLOP_STRING_LITERAL; }
 <state_exp_value> {STRING} { return JsgfTypes.LABEL_STRING; }
 <state_exp_value> {RULE_NAME} { return JsgfTypes.RULE_NAME; }
+<state_exp_value> {WEIGHTS} { return JsgfTypes.WEIGHTS; }
 <state_exp_value> ";" { yybegin(YYINITIAL); return JsgfTypes.SEMICOLON; }
 
 

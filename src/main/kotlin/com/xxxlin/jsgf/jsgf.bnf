@@ -72,5 +72,5 @@ rule ::= KEYWORD? RULE_NAME "=" rule_expansion ";"
 // LABEL_STRING "<a>"
 // 不加这层会导致idea卡死
 rule_expansion ::= exp
-exp ::= (SLOP_STRING_LITERAL | LINE_COMMENT | BLOCK_COMMENT | LABEL_STRING | RULE_NAME | "(" rule_expansion ")" | "[" rule_expansion "]") rule_expansion* ("+"|"*")? (OP_OR rule_expansion)*
+exp ::= WEIGHTS? (SLOP_STRING_LITERAL | LINE_COMMENT | BLOCK_COMMENT | LABEL_STRING | RULE_NAME | "(" rule_expansion ")" | "[" rule_expansion "]") rule_expansion* ("+"|"*")? (OP_OR rule_expansion)*
 
