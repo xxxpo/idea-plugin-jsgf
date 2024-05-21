@@ -1,0 +1,65 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+    <!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
+    <id>com.xxxlin.jsgf</id>
+
+    <!-- Public plugin name should be written in Title Case.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
+    <name>Jsgf</name>
+
+    <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
+    <vendor email="xxxpo@139.com" url="https://www.xxxlin.com">吴书华</vendor>
+
+    <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
+         Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
+    <description><![CDATA[
+    Enter short description for your plugin here.<br>
+    <em>most HTML tags may be used</em>
+  ]]></description>
+
+    <!-- Product and plugin compatibility requirements.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
+    <depends>com.intellij.modules.platform</depends>
+
+    <!-- Extension points defined by the plugin.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- 定义语言 -->
+        <fileType
+                name="Jsgf File"
+                implementationClass="com.xxxlin.jsgf.JsgfFileType"
+                fieldName="INSTANCE"
+                language="Jsgf"
+                extensions="jsgf"/>
+
+        <!-- 语法结构 -->
+        <lang.parserDefinition
+                language="Jsgf"
+                implementationClass="com.xxxlin.jsgf.JsgfParserDefinition"/>
+
+        <!-- 语法高亮 -->
+        <lang.syntaxHighlighterFactory
+                language="Jsgf"
+                implementationClass="com.xxxlin.jsgf.JsgfSyntaxHighlighterFactory"/>
+
+        <!-- 括号匹配 -->
+        <lang.braceMatcher
+                language="Jsgf"
+                implementationClass="com.xxxlin.jsgf.JsgfPairedBraceMatcher"/>
+
+        <!-- 注释器 -->
+        <lang.commenter
+                language="Jsgf"
+                implementationClass="com.xxxlin.jsgf.JsgfCommenter"/>
+
+        <!-- 代码提示 -->
+        <completion.contributor
+                language="Jsgf"
+                implementationClass="com.xxxlin.jsgf.JsgfCompletionContributor"/>
+
+        <completion.plainTextSymbol
+                language="Jsgf"
+                implementationClass="com.xxxlin.jsgf.JsgfPlainTextSymbolCompletionContributor"/>
+    </extensions>
+</idea-plugin>

@@ -1,0 +1,70 @@
+{
+  parserClass="com.xxxlin.jsgf.parser.JsgfParser"
+  parserUtilClass="com.xxxlin.jsgf.parser.JsgfParserUtil"
+
+  extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+
+  psiClassPrefix="Jsgf"
+  psiImplClassSuffix="Impl"
+  psiPackage="com.xxxlin.jsgf.psi"
+  psiImplPackage="com.xxxlin.jsgf.psi.impl"
+
+  elementTypeHolderClass="com.xxxlin.jsgf.psi.JsgfTypes"
+  elementTypeClass="com.xxxlin.jsgf.JsgfElementType"
+  tokenTypeClass="com.xxxlin.jsgf.JsgfTokenType"
+
+  psiImplUtilClass="com.xxxlin.jsgf.JsgfPsiImplUtil"
+
+
+  tokens = [
+    OP_EQ="="
+    OP_IS="::="
+    OP_OR="|"
+    OP_OPT="?"
+    OP_ONEMORE="+"
+    OP_ZEROMORE="*"
+    OP_AND="&"
+    OP_NOT="!"
+    SEMICOLON=";"
+    LEFT_BRACE="{"
+    RIGHT_BRACE="}"
+    LEFT_BRACKET="["
+    RIGHT_BRACKET="]"
+    LEFT_PAREN="("
+    RIGHT_PAREN=")"
+    SPACE='regexp:\s+'
+    id="regexp:\w+"
+    STRING="regexp:('([^'\\]|\\.)*'|\"([^\"\\]|\\\"|\\'|\\)*\")"
+    TEXT=""
+//    DOC_VERSION="regexp:\w+"
+//    number="regexp:\d+"
+    LINE_COMMENT="regexp://.*"
+    BLOCK_COMMENT="regexp:/\*(.|\n)*\*/"
+//    variable_name="regexp:/(a-zA-Z0-9)+/"
+
+  ]
+}
+
+jsgfFile ::= item*
+
+item ::= (document|grammar|LINE_COMMENT|BLOCK_COMMENT|exp)
+
+// #JSGF V1.0 utf-8 en;
+document ::= KEYWORD DOC_VERSION DOC_ENCODE JSGF_LANGUAGE ";"
+// grammar sampleTag;
+grammar ::= KEYWORD GRAMMAR_NAME ";"
+
+// private <vlCtrlDown> = (调低|减小|降低|减);
+exp ::= KEYWORD? VARIABLE_NAME "=" VARIABLE_VALUE ";"
+{
+  methods=[getKey getValue]
+}
+
+VARIABLE_VALUE ::= slop_string
+
+// slop_string 槽位文本 一|二|三|四[五|六|七]
+// SLOP_STRING_LITERAL 字面文本
+// KEYWORD <key>
+// LABEL_STRING "<a>"
+slop_string ::= (SLOP_STRING_LITERAL | LINE_COMMENT | BLOCK_COMMENT | LABEL_STRING | VARIABLE_NAME | "(" slop_string ")" | "[" slop_string "]" ) slop_string* (OP_OR slop_string)*
+
