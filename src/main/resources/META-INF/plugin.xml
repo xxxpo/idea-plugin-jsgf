@@ -8,14 +8,22 @@
     <name>Jsgf</name>
 
     <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
-    <vendor email="xxxpo@139.com" url="https://www.xxxlin.com">吴书华</vendor>
+    <vendor email="" url="https://github.com/xxxpo">吴书华</vendor>
 
     <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
          Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
          Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
     <description><![CDATA[
-    Enter short description for your plugin here.<br>
-    <em>most HTML tags may be used</em>
+<p>This is a plugin for all JetBrains IDEs to support the JSGF file format.</p>
+<ul><li>syntax highlighting
+<li>syntax error checking
+<li>parenthesis, bracket, brace, and angle bracket matching
+</ul>
+<p>JSGF文件格式插件，适应JetBrains全家桶。</p>
+<ul><li>语法高亮
+<li>语法错误检查
+<li>圆括号、中括号、大括号和尖括号匹配
+</ul>
   ]]></description>
 
     <!-- Product and plugin compatibility requirements.

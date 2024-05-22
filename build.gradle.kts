@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.xxxlin"
-version = "v0.1"
+version = "v20240522-0.1"
 
 repositories {
     mavenCentral()
