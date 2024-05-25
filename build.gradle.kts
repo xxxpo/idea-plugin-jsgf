@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     id("java")
     id("org.jetbrains.kotlin.jvm") version "1.9.23"
@@ -5,7 +7,13 @@ plugins {
 }
 
 group = "com.xxxlin"
-version = "v20240522-0.1"
+version = "0.1.1"
+
+val localProperty = Properties()
+localProperty.load(project.rootProject.file("local.properties").inputStream())
+fun getLocalProperty(key: String): String {
+    return localProperty.getProperty(key)
+}
 
 repositories {
     mavenCentral()
@@ -40,14 +48,14 @@ tasks {
     }
 
     patchPluginXml {
-        sinceBuild.set("231")
+        sinceBuild.set("202")
         untilBuild.set("242.*")
     }
 
     signPlugin {
-        certificateChain.set(System.getenv("CERTIFICATE_CHAIN"))
-        privateKey.set(System.getenv("PRIVATE_KEY"))
-        password.set(System.getenv("PRIVATE_KEY_PASSWORD"))
+        certificateChainFile.set(file("certificate/chain.crt"))
+        privateKeyFile.set(file("certificate/private.pem"))
+        password.set(getLocalProperty("sign_password"))
     }
 
     publishPlugin {
