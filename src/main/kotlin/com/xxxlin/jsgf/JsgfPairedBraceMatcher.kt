@@ -26,13 +26,13 @@ class JsgfPairedBraceMatcher : PairedBraceMatcher {
         if (lbraceType.language != contextType.language) {
             return false
         }
-        if (lbraceType.debugName == "[" && contextType.debugName == "]") {
+        if (lbraceType == JsgfTypes.LEFT_BRACKET && contextType == JsgfTypes.RIGHT_BRACE) {
             return true
         }
-        if (lbraceType.debugName == "(" && contextType.debugName == ")") {
+        if (lbraceType == JsgfTypes.LEFT_PAREN && contextType == JsgfTypes.RIGHT_PAREN) {
             return true
         }
-        if (lbraceType.debugName == "{" && contextType.debugName == "}") {
+        if (lbraceType == JsgfTypes.LEFT_BRACE && contextType == JsgfTypes.RIGHT_BRACKET) {
             return true
         }
         return false
