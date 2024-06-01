@@ -89,7 +89,7 @@ BLOCK_COMMENT="/*"([^]|\n)*"*/"
 
 // 表达式
 <YYINITIAL> "public" { yybegin(state_exp); return JsgfTypes.KEYWORD; }
-<YYINITIAL, state_exp> {RULE_NAME} { yybegin(state_exp); return JsgfTypes.RULE_NAME; }
+<YYINITIAL, state_exp> {RULE_NAME} { yybegin(state_exp); return JsgfTypes.DEF_RULE_NAME; }
 <state_exp> "=" { yybegin(state_exp_value); return JsgfTypes.OP_EQ; }
 <state_exp_value> "|" { return JsgfTypes.OP_OR; }
 <state_exp_value> "(" { return JsgfTypes.LEFT_PAREN; }

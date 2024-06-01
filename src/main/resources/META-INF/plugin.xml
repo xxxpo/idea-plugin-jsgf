@@ -67,8 +67,5 @@
                 language="Jsgf"
                 implementationClass="com.xxxlin.jsgf.JsgfCompletionContributor"/>
 
-        <completion.plainTextSymbol
-                language="Jsgf"
-                implementationClass="com.xxxlin.jsgf.JsgfPlainTextSymbolCompletionContributor"/>
     </extensions>
 </idea-plugin>

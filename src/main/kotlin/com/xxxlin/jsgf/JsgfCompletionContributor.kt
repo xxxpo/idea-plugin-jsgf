@@ -36,6 +36,10 @@ class JsgfCompletionContributor : CompletionContributor() {
     }
 
     private fun find(e: PsiElement, result: MutableList<String>) {
+        val defRuleName = e.node.findChildByType(JsgfTypes.DEF_RULE_NAME)
+        if (defRuleName != null) {
+            result.add(defRuleName.text)
+        }
         val ruleName = e.node.findChildByType(JsgfTypes.RULE_NAME)
         if (ruleName != null) {
             result.add(ruleName.text)

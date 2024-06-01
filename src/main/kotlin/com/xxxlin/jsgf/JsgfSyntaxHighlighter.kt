@@ -40,7 +40,7 @@ object JsgfSyntaxHighlighter : SyntaxHighlighterBase() {
         if (tokenType == JsgfTypes.KEYWORD) {
             return key_keyword
         }
-        if(tokenType == JsgfTypes.RULE_NAME) {
+        if(tokenType == JsgfTypes.RULE_NAME || tokenType == JsgfTypes.DEF_RULE_NAME) {
             return key_function_declaration
         }
         if (tokenType == JsgfTypes.OP_EQ) {

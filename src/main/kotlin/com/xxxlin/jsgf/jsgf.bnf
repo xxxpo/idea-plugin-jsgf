@@ -61,7 +61,7 @@ import ::= "import" IMPORT_PACKAGE_NAME ";"
 // 语法规则
 rule_declarations ::= LINE_COMMENT | BLOCK_COMMENT | rule
 // private <vlCtrlDown> = (调低|减小|降低|减);
-rule ::= KEYWORD? RULE_NAME "=" rule_expansion ";"
+rule ::= KEYWORD? DEF_RULE_NAME "=" rule_expansion ";"
 {
   methods=[getKey getValue]
 }
