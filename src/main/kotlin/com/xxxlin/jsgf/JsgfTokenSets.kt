@@ -5,6 +5,19 @@ import com.xxxlin.jsgf.psi.JsgfTypes
 
 object JsgfTokenSets {
 
-    var COMMENTS: TokenSet = TokenSet.create(JsgfTypes.LINE_COMMENT, JsgfTypes.BLOCK_COMMENT)
-    var STRING: TokenSet = TokenSet.create(JsgfTypes.STRING)
+    val IDENTIFIERS = TokenSet.create(
+        JsgfTypes.DEF_RULE_NAME,
+        JsgfTypes.SLOP_STRING_LITERAL,
+    )
+
+    val COMMENTS = TokenSet.create(
+        JsgfTypes.LINE_COMMENT,
+        JsgfTypes.BLOCK_COMMENT,
+    )
+
+    val LITERAL = TokenSet.create(
+        JsgfTypes.RULE_NAME,
+        JsgfTypes.SLOP_STRING_LITERAL,
+        JsgfTypes.DEF_RULE_NAME,
+    )
 }

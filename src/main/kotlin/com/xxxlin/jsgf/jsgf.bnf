@@ -63,7 +63,9 @@ rule_declarations ::= LINE_COMMENT | BLOCK_COMMENT | rule
 // private <vlCtrlDown> = (调低|减小|降低|减);
 rule ::= KEYWORD? DEF_RULE_NAME "=" rule_expansion ";"
 {
-  methods=[getKey getValue]
+  mixin="com.xxxlin.jsgf.JsgfNamedElementImpl"
+  implements="com.xxxlin.jsgf.JsgfNamedElement"
+  methods=[getKey getValue getName setName getNameIdentifier getPresentation]
 }
 
 // slop_string 槽位文本 一|二|三|四[五|六|七]
@@ -73,4 +75,3 @@ rule ::= KEYWORD? DEF_RULE_NAME "=" rule_expansion ";"
 // 不加这层会导致idea卡死
 rule_expansion ::= exp
 exp ::= WEIGHTS? (SLOP_STRING_LITERAL | LINE_COMMENT | BLOCK_COMMENT | LABEL_STRING | RULE_NAME | "(" exp ")" | "[" exp "]") exp* ("+"|"*")? (OP_OR exp)*
-

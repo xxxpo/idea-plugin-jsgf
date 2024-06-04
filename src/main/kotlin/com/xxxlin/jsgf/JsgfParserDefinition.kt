@@ -28,7 +28,7 @@ class JsgfParserDefinition : ParserDefinition {
     }
 
     override fun getStringLiteralElements(): TokenSet {
-        return JsgfTokenSets.STRING
+        return JsgfTokenSets.LITERAL
     }
 
     override fun createParser(project: Project): PsiParser {
