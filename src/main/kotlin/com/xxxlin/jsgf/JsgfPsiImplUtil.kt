@@ -18,7 +18,7 @@ object JsgfPsiImplUtil {
 
     @JvmStatic
     fun getValue(element: JsgfRule): String? {
-        val valueNode = element.node.findChildByType(JsgfTypes.EXP) ?: return null
+        val valueNode = element.node.findChildByType(JsgfTypes.RULE_EXPANSION) ?: return null
         return valueNode.text.trim()
     }
 
@@ -44,20 +44,22 @@ object JsgfPsiImplUtil {
         return node?.psi
     }
 
+    /**
+     * 结构视图
+     */
     @JvmStatic
     fun getPresentation(element: JsgfRule): ItemPresentation {
         return object : ItemPresentation {
-            override fun getPresentableText(): String? {
-                return element.getKey()
+            override fun getPresentableText(): String {
+                return "<${element.getKey()}>"
             }
 
             override fun getLocationString(): String? {
-                val containingFile = element.containingFile
-                return containingFile.name
+                return null
             }
 
-            override fun getIcon(unused: Boolean): Icon? {
-                return element.getIcon(0)
+            override fun getIcon(unused: Boolean): Icon {
+                return JsgfIcons.FILE
             }
         }
     }

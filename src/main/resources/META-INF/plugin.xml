@@ -92,5 +92,10 @@
                 language="JAVA"
                 implementation="com.xxxlin.jsgf.JsgfReferenceContributor"/>
 
+        <!-- 结构视图 -->
+        <lang.psiStructureViewFactory
+                language="Jsgf"
+                implementationClass="com.xxxlin.jsgf.JsgfStructureViewFactory"/>
+
     </extensions>
 </idea-plugin>
