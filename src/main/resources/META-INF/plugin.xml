@@ -97,5 +97,8 @@
                 language="Jsgf"
                 implementationClass="com.xxxlin.jsgf.JsgfStructureViewFactory"/>
 
+        <!-- 导航栏结构 -->
+        <navbar implementation="com.xxxlin.jsgf.JsgfStructureAwareNavbar"/>
+
     </extensions>
 </idea-plugin>

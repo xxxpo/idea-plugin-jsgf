@@ -1,5 +1,6 @@
 package com.xxxlin.jsgf
 
+import com.intellij.icons.AllIcons
 import com.intellij.navigation.ItemPresentation
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
@@ -59,7 +60,7 @@ object JsgfPsiImplUtil {
             }
 
             override fun getIcon(unused: Boolean): Icon {
-                return JsgfIcons.FILE
+                return AllIcons.Nodes.Property
             }
         }
     }
