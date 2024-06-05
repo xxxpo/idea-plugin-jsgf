@@ -2,13 +2,9 @@ package com.xxxlin.jsgf
 
 import com.intellij.icons.AllIcons
 import com.intellij.ide.navigationToolbar.StructureAwareNavBarModelExtension
-import com.intellij.ide.structureView.StructureViewTreeElement
-import com.intellij.ide.util.treeView.smartTree.NodeProvider
-import com.intellij.ide.util.treeView.smartTree.TreeElement
 import com.intellij.lang.Language
 import com.intellij.psi.PsiElement
 import com.xxxlin.jsgf.psi.JsgfRule
-import com.xxxlin.jsgf.psi.impl.JsgfRuleImpl
 import javax.swing.Icon
 
 class JsgfStructureAwareNavbar(

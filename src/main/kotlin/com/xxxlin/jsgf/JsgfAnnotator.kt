@@ -21,8 +21,8 @@ class JsgfAnnotator : Annotator {
 
         // <simple>
         val keyRange = TextRange(element.getTextRange().startOffset + 1, element.textRange.endOffset - 1)
-        val properties = JsgfUtil.findDefRuleName(element.getProject(), value)
-        if (properties.isEmpty()) {
+        val listPsiElement = JsgfUtil.findDefRuleName(element.getProject(), value)
+        if (listPsiElement.isEmpty()) {
 //            holder.newAnnotation(HighlightSeverity.ERROR, "Unresolved property")
 //                .range(keyRange)
 //                .highlightType(ProblemHighlightType.LIKE_UNKNOWN_SYMBOL) // ** Tutorial step 19. - Add a quick fix for the string containing possible properties

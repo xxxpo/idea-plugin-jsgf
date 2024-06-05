@@ -34,7 +34,7 @@ class JsgfFindUsagesProvider : FindUsagesProvider {
 
     override fun getType(element: PsiElement): String {
         if (element is JsgfRule) {
-            return "<${element.key}>"
+            return "${element.key}"
         }
         return ""
     }
@@ -49,9 +49,9 @@ class JsgfFindUsagesProvider : FindUsagesProvider {
     override fun getNodeText(element: PsiElement, useFullName: Boolean): String {
         println("------getNodeText ${element.text}")
         if (element is JsgfRule) {
-            return "<${element.key}>"
+            return "${element.key}"
         }
-        return "123"
+        return ""
     }
 
 }

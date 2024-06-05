@@ -6,6 +6,9 @@ import com.intellij.psi.PsiFile
 import com.intellij.psi.tree.IElementType
 import com.xxxlin.jsgf.psi.JsgfTypes
 
+/**
+ * 括号匹配
+ */
 class JsgfPairedBraceMatcher : PairedBraceMatcher {
 
     override fun getPairs(): Array<BracePair> {

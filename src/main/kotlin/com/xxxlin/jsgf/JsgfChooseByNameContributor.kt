@@ -18,7 +18,7 @@ class JsgfChooseByNameContributor : ChooseByNameContributorEx {
         filter: IdFilter?
     ) {
         val project: Project = scope.project!!
-        val ret = JsgfUtil.findProperties(project)
+        val ret = JsgfUtil.findRules(project)
         println("ret size=${ret.size}")
         val propertyKeys = ContainerUtil.map(
             ret, JsgfRule::getKey

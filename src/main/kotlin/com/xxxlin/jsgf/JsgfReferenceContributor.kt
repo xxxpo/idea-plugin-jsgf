@@ -17,7 +17,6 @@ class JsgfReferenceContributor : PsiReferenceContributor() {
                 ): Array<out PsiReference> {
                     val exp = element as PsiLiteralExpression
                     val text = exp.text.trim()
-                    // println("getReferencesByElement text=$text")
                     if (text.startsWith("\"<") && text.endsWith(">\"")) {
                         val textRange = TextRange(1, text.length - 1)
                         return arrayOf<PsiReference>(JsgfReference(element, textRange))

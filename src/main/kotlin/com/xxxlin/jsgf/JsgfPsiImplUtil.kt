@@ -3,7 +3,6 @@ package com.xxxlin.jsgf
 import com.intellij.icons.AllIcons
 import com.intellij.navigation.ItemPresentation
 import com.intellij.psi.PsiElement
-import com.intellij.psi.PsiFile
 import com.xxxlin.jsgf.psi.JsgfRule
 import com.xxxlin.jsgf.psi.JsgfTypes
 import javax.swing.Icon
@@ -14,7 +13,7 @@ object JsgfPsiImplUtil {
     @JvmStatic
     fun getKey(element: JsgfRule): String? {
         val keyNode = element.node.findChildByType(JsgfTypes.DEF_RULE_NAME) ?: return null
-        return keyNode.text.replace("<", "").replace(">", "")
+        return keyNode.text
     }
 
     @JvmStatic
@@ -25,7 +24,7 @@ object JsgfPsiImplUtil {
 
     @JvmStatic
     fun getName(element: JsgfRule): String {
-        return "<${getKey(element)}>"
+        return "${getKey(element)}"
     }
 
     @JvmStatic
@@ -52,7 +51,7 @@ object JsgfPsiImplUtil {
     fun getPresentation(element: JsgfRule): ItemPresentation {
         return object : ItemPresentation {
             override fun getPresentableText(): String {
-                return "<${element.getKey()}>"
+                return "${element.key}"
             }
 
             override fun getLocationString(): String? {

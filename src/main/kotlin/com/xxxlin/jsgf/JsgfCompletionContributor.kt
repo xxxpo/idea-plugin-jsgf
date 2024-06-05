@@ -17,7 +17,6 @@ class JsgfCompletionContributor : CompletionContributor() {
                 override fun addCompletions(
                     parameters: CompletionParameters, context: ProcessingContext, result: CompletionResultSet
                 ) {
-                    print(parameters.originalFile)
                     val properties = JsgfUtil.findDefRuleName(parameters.originalFile)
                     properties.forEach {
                         val text = it.text.replace("<", "").replace(">", "")
