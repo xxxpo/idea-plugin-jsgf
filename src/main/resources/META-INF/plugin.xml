@@ -14,17 +14,38 @@
          Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
          Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
     <description><![CDATA[
-<p>This is a plugin for all JetBrains IDEs to support the JSGF file format.</p>
+<h3>This is a plugin for all JetBrains IDEs to support the JSGF file format.</h3>
 <ul><li>syntax highlighting
 <li>syntax error checking
 <li>parenthesis, bracket, brace, and angle bracket matching
 </ul>
-<p>JSGF文件格式插件，适应JetBrains全家桶。</p>
+<h3>JSGF文件格式插件，适应JetBrains全家桶。</h3>
 <ul><li>语法高亮
 <li>语法错误检查
 <li>圆括号、中括号、大括号和尖括号匹配
 </ul>
   ]]></description>
+
+    <change-notes><![CDATA[
+<h2>v0.1.2</h2>
+<ul>
+  <li>新增导航视图支持</li>
+  <li>新增结构视图支持</li>
+  <li>新增支持Java字符串中引用JSGF槽位</li>
+  <li>新增支持查找引用</li>
+  <li>新增支持转到定义</li>
+</ul>
+<h2>v0.1.1</h2>
+<ul>
+  <li>优化代码提示,表达式内标签也会作为提示</li>
+</ul>
+<h2>v0.1.0</h2>
+<ul>
+   <li>语法高亮
+   <li>语法错误检查
+   <li>圆括号、中括号、大括号和尖括号匹配
+</ul>
+]]></change-notes>
 
     <!-- Product and plugin compatibility requirements.
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
