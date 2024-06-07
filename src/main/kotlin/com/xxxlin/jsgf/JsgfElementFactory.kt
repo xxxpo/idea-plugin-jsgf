@@ -1,15 +1,25 @@
 package com.xxxlin.jsgf
 
 import com.intellij.openapi.project.Project
+import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiElementFactory
 import com.intellij.psi.PsiFileFactory
-import com.xxxlin.jsgf.psi.JsgfRule
+import com.xxxlin.jsgf.psi.JsgfReferenceRuleName
+import com.xxxlin.jsgf.psi.JsgfTypes
 
 object JsgfElementFactory {
 
     @JvmStatic
-    fun createProperty(project: Project, name: String): JsgfRule {
+    fun createProperty(project: Project, name: String): PsiElement {
+        return PsiElementFactory
+            .getInstance(project)
+            .createDummyHolder(name, JsgfTypes.DEF_RULE_NAME_WRAPPER, null)
+    }
+
+    @JvmStatic
+    fun createRuleName(project: Project, name: String): JsgfReferenceRuleName {
         val file = createFile(project, name)
-        return file.firstChild as JsgfRule
+        return file.firstChild as JsgfReferenceRuleName
     }
 
     @JvmStatic

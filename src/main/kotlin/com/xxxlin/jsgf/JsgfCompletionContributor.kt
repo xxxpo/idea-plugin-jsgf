@@ -10,19 +10,26 @@ import com.xxxlin.jsgf.psi.JsgfTypes
  * 代码提示
  */
 class JsgfCompletionContributor : CompletionContributor() {
+
     init {
-        extend(CompletionType.BASIC,
+        extend(
+            CompletionType.BASIC,
             PlatformPatterns.psiElement(JsgfTypes.SLOP_STRING_LITERAL),
-            object : CompletionProvider<CompletionParameters>() {
-                override fun addCompletions(
-                    parameters: CompletionParameters, context: ProcessingContext, result: CompletionResultSet
-                ) {
-                    val properties = JsgfUtil.findDefRuleName(parameters.originalFile)
-                    properties.forEach {
-                        val text = it.text.replace("<", "").replace(">", "")
-                        result.addElement(LookupElementBuilder.create(text))
-                    }
-                }
-            })
+            MyCompletionProvider()
+        )
+    }
+
+    class MyCompletionProvider : CompletionProvider<CompletionParameters>() {
+        override fun addCompletions(
+            parameters: CompletionParameters,
+            context: ProcessingContext,
+            result: CompletionResultSet
+        ) {
+            val nodes = JsgfUtil.findDefRuleName(parameters.originalFile)
+            nodes.forEach {
+                val text = it.text.replace("<", "").replace(">", "")
+                result.addElement(LookupElementBuilder.create(text))
+            }
+        }
     }
 }

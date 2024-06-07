@@ -52,9 +52,15 @@ object JsgfUtil {
         }
     }
 
-    fun findRules(project: Project, key: String): List<JsgfRule> {
+    fun findRules(project: Project, ruleName: String): List<JsgfRule> {
         return findRules(project).filter {
-            it.key == key
+            it.defRuleName == ruleName
+        }
+    }
+
+    fun findRules(element: PsiElement, ruleName: String): List<JsgfRule> {
+        return findRules(element).filter {
+            it.defRuleName == ruleName
         }
     }
 

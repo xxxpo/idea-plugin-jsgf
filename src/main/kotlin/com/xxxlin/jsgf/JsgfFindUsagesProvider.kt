@@ -1,7 +1,6 @@
 package com.xxxlin.jsgf
 
 import com.intellij.lang.cacheBuilder.DefaultWordsScanner
-import com.intellij.lang.cacheBuilder.WordOccurrence
 import com.intellij.lang.cacheBuilder.WordsScanner
 import com.intellij.lang.findUsages.FindUsagesProvider
 import com.intellij.lexer.Lexer
@@ -34,22 +33,21 @@ class JsgfFindUsagesProvider : FindUsagesProvider {
 
     override fun getType(element: PsiElement): String {
         if (element is JsgfRule) {
-            return "${element.key}"
+            return element.defRuleName ?: ""
         }
         return ""
     }
 
     override fun getDescriptiveName(element: PsiElement): String {
         if (element is JsgfRule) {
-            return "${element.value}"
+            return element.value ?: ""
         }
         return ""
     }
 
     override fun getNodeText(element: PsiElement, useFullName: Boolean): String {
-        println("------getNodeText ${element.text}")
         if (element is JsgfRule) {
-            return "${element.key}"
+            return element.defRuleName ?: ""
         }
         return ""
     }

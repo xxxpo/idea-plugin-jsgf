@@ -33,7 +33,7 @@
     RIGHT_PAREN=")"
     SPACE='regexp:\s+'
     STRING="regexp:('([^'\\]|\\.)*'|\"([^\"\\]|\\\"|\\'|\\)*\")"
-    TEXT=""
+    TEXT2=""
     LINE_COMMENT="regexp://.*"
     BLOCK_COMMENT="regexp:/\*(.|\n)*\*/"
   ]
@@ -61,12 +61,14 @@ import ::= "import" IMPORT_PACKAGE_NAME ";"
 // 语法规则
 rule_declarations ::= LINE_COMMENT | BLOCK_COMMENT | rule
 // private <vlCtrlDown> = (调低|减小|降低|减);
-rule ::= KEYWORD? DEF_RULE_NAME "=" rule_expansion ";"
+rule ::= KEYWORD? def_rule_name_wrapper "=" rule_expansion ";"
 {
   mixin="com.xxxlin.jsgf.JsgfNamedElementImpl"
   implements="com.xxxlin.jsgf.JsgfNamedElement"
-  methods=[getKey getValue getName setName getNameIdentifier getPresentation]
+  methods=[getDefRuleName getValue getName setName getNameIdentifier getPresentation]
 }
+
+def_rule_name_wrapper ::= DEF_RULE_NAME
 
 // slop_string 槽位文本 一|二|三|四[五|六|七]
 // SLOP_STRING_LITERAL 字面文本
@@ -74,4 +76,9 @@ rule ::= KEYWORD? DEF_RULE_NAME "=" rule_expansion ";"
 // LABEL_STRING "<a>"
 // 不加这层会导致idea卡死
 rule_expansion ::= exp
-exp ::= WEIGHTS? (SLOP_STRING_LITERAL | LINE_COMMENT | BLOCK_COMMENT | LABEL_STRING | RULE_NAME | "(" exp ")" | "[" exp "]") exp* ("+"|"*")? (OP_OR exp)*
+exp ::= WEIGHTS? (SLOP_STRING_LITERAL | LINE_COMMENT | BLOCK_COMMENT | LABEL_STRING | reference_rule_name | "(" exp ")" | "[" exp "]") exp* ("+"|"*")? (OP_OR exp)*
+reference_rule_name ::= RULE_NAME {
+  mixin="com.xxxlin.jsgf.JsgfNamedElementImpl"
+  implements="com.xxxlin.jsgf.JsgfNamedElement"
+  methods=[getReference getName setName getNameIdentifier]
+}

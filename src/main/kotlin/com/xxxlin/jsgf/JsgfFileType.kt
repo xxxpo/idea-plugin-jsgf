@@ -1,7 +1,6 @@
 package com.xxxlin.jsgf
 
 import com.intellij.openapi.fileTypes.LanguageFileType
-import org.jetbrains.annotations.NotNull
 import javax.swing.Icon
 
 class JsgfFileType : LanguageFileType(JsgfLanguage.INSTANCE) {
@@ -11,17 +10,15 @@ class JsgfFileType : LanguageFileType(JsgfLanguage.INSTANCE) {
     }
 
     override fun getName(): String {
-        return "Jsgf File"
+        return "JSGF File"
     }
 
-    @NotNull
     override fun getDescription(): String {
-        return "Java Speech Grammar Format"
+        return "JSpeech Grammar Format"
     }
 
-    @NotNull
     override fun getDefaultExtension(): String {
-        return "jsgf"
+        return "JSGF"
     }
 
     override fun getIcon(): Icon {

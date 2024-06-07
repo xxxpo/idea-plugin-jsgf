@@ -19,12 +19,9 @@ class JsgfStructureViewElement(
 
     override fun getChildren(): Array<TreeElement> {
         if (element is JsgfFile) {
-            val rules = JsgfUtil.findRules(element)
-            val treeElements: MutableList<TreeElement> = ArrayList(rules.size)
-            for (row in rules) {
-                treeElements.add(JsgfStructureViewElement(row as JsgfRuleImpl))
-            }
-            return treeElements.toTypedArray<TreeElement>()
+            return JsgfUtil.findRules(element).map {
+                JsgfStructureViewElement(it as JsgfRuleImpl)
+            }.toTypedArray()
         }
         return arrayOf()
     }

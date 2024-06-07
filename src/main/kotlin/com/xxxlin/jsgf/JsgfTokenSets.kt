@@ -7,7 +7,7 @@ object JsgfTokenSets {
 
     val IDENTIFIERS = TokenSet.create(
         JsgfTypes.DEF_RULE_NAME,
-        JsgfTypes.SLOP_STRING_LITERAL,
+        JsgfTypes.REFERENCE_RULE_NAME,
     )
 
     val COMMENTS = TokenSet.create(
@@ -16,8 +16,6 @@ object JsgfTokenSets {
     )
 
     val LITERAL = TokenSet.create(
-        JsgfTypes.RULE_NAME,
         JsgfTypes.SLOP_STRING_LITERAL,
-        JsgfTypes.DEF_RULE_NAME,
     )
 }

@@ -6,6 +6,4 @@ class JsgfElementType(
     debugName: String
 ) : IElementType(
     debugName, JsgfLanguage.INSTANCE
-) {
-
-}
+)

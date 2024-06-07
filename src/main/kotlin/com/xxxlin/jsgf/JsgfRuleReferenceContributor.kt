@@ -5,7 +5,10 @@ import com.intellij.patterns.PlatformPatterns
 import com.intellij.psi.*
 import com.intellij.util.ProcessingContext
 
-class JsgfReferenceContributor : PsiReferenceContributor() {
+/**
+ * java字符串引用JSGF规则
+ */
+class JsgfRuleReferenceContributor : PsiReferenceContributor() {
 
     override fun registerReferenceProviders(registrar: PsiReferenceRegistrar) {
         registrar.registerReferenceProvider(
@@ -19,11 +22,11 @@ class JsgfReferenceContributor : PsiReferenceContributor() {
                     val text = exp.text.trim()
                     if (text.startsWith("\"<") && text.endsWith(">\"")) {
                         val textRange = TextRange(1, text.length - 1)
-                        return arrayOf<PsiReference>(JsgfReference(element, textRange))
+                        return arrayOf<PsiReference>(JsgfRuleReference(element, textRange, false))
                     }
                     return PsiReference.EMPTY_ARRAY
                 }
-            }, PsiReferenceRegistrar.HIGHER_PRIORITY
+            }
         )
     }
 }

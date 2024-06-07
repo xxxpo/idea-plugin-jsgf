@@ -7,7 +7,10 @@ import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiLiteralExpression
 
-class JsgfAnnotator : Annotator {
+/**
+ * java字符串注解
+ */
+class JsgfRuleAnnotator : Annotator {
 
     override fun annotate(element: PsiElement, holder: AnnotationHolder) {
         if (element !is PsiLiteralExpression) {

@@ -16,7 +16,7 @@ class JsgfStructureAwareNavbar(
             return obj.name
         }
         if (obj is JsgfRule) {
-            return obj.key
+            return obj.defRuleName
         }
         return null
     }

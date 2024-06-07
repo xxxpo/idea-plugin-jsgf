@@ -61,47 +61,47 @@
                 name="Jsgf File"
                 implementationClass="com.xxxlin.jsgf.JsgfFileType"
                 fieldName="INSTANCE"
-                language="Jsgf"
-                extensions="jsgf"/>
+                language="JSGF"
+                extensions="JSGF"/>
 
         <!-- 语法结构 -->
         <lang.parserDefinition
-                language="Jsgf"
+                language="JSGF"
                 implementationClass="com.xxxlin.jsgf.JsgfParserDefinition"/>
 
         <!-- 语法高亮 -->
         <lang.syntaxHighlighterFactory
-                language="Jsgf"
+                language="JSGF"
                 implementationClass="com.xxxlin.jsgf.JsgfSyntaxHighlighterFactory"/>
 
         <!-- 括号匹配 -->
         <lang.braceMatcher
-                language="Jsgf"
+                language="JSGF"
                 implementationClass="com.xxxlin.jsgf.JsgfPairedBraceMatcher"/>
 
         <!-- 注释器 -->
         <lang.commenter
-                language="Jsgf"
+                language="JSGF"
                 implementationClass="com.xxxlin.jsgf.JsgfCommenter"/>
 
         <!-- 代码提示 -->
         <completion.contributor
-                language="Jsgf"
+                language="JSGF"
                 implementationClass="com.xxxlin.jsgf.JsgfCompletionContributor"/>
 
         <!-- java字符串注解 -->
         <annotator
                 language="JAVA"
-                implementationClass="com.xxxlin.jsgf.JsgfAnnotator"/>
+                implementationClass="com.xxxlin.jsgf.JsgfRuleAnnotator"/>
 
         <!-- 重构支持 -->
         <lang.refactoringSupport
-                language="Jsgf"
+                language="JSGF"
                 implementationClass="com.xxxlin.jsgf.JsgfRefactoringSupportProvider"/>
 
         <!-- 查找使用 -->
         <lang.findUsagesProvider
-                language="Jsgf"
+                language="JSGF"
                 implementationClass="com.xxxlin.jsgf.JsgfFindUsagesProvider"/>
 
         <!-- 转到定义 -->
@@ -111,11 +111,11 @@
         <!-- 查找引用信息 -->
         <psi.referenceContributor
                 language="JAVA"
-                implementation="com.xxxlin.jsgf.JsgfReferenceContributor"/>
+                implementation="com.xxxlin.jsgf.JsgfRuleReferenceContributor"/>
 
         <!-- 结构视图 -->
         <lang.psiStructureViewFactory
-                language="Jsgf"
+                language="JSGF"
                 implementationClass="com.xxxlin.jsgf.JsgfStructureViewFactory"/>
 
         <!-- 导航栏结构 -->
