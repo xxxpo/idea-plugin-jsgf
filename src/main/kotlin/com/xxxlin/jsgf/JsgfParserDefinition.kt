@@ -16,7 +16,7 @@ import com.xxxlin.jsgf.psi.JsgfTypes
 class JsgfParserDefinition : ParserDefinition {
 
     companion object {
-        val FILE: IFileElementType = IFileElementType(JsgfLanguage.INSTANCE)
+        val FILE: IFileElementType = IFileElementType(JSGFLanguage.INSTANCE)
     }
 
     override fun createLexer(project: Project): Lexer {

@@ -58,7 +58,7 @@
         <!-- 定义语言 -->
         <!-- Jsgf文件 https://www.w3.org/TR/jsgf/ -->
         <fileType
-                name="Jsgf File"
+                name="JSGF File"
                 implementationClass="com.xxxlin.jsgf.JsgfFileType"
                 fieldName="INSTANCE"
                 language="JSGF"
@@ -112,6 +112,10 @@
         <psi.referenceContributor
                 language="JAVA"
                 implementation="com.xxxlin.jsgf.JsgfRuleReferenceContributor"/>
+
+        <codeInsight.lineMarkerProvider
+                language="JAVA"
+                implementationClass="com.xxxlin.jsgf.JsgfLineMarkerProvider"/>
 
         <!-- 结构视图 -->
         <lang.psiStructureViewFactory

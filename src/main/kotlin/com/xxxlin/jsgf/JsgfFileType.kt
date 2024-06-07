@@ -3,7 +3,7 @@ package com.xxxlin.jsgf
 import com.intellij.openapi.fileTypes.LanguageFileType
 import javax.swing.Icon
 
-class JsgfFileType : LanguageFileType(JsgfLanguage.INSTANCE) {
+class JsgfFileType : LanguageFileType(JSGFLanguage.INSTANCE) {
 
     companion object {
         val INSTANCE = JsgfFileType()

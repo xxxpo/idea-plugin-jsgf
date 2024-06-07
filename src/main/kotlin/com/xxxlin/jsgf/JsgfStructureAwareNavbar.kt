@@ -8,7 +8,7 @@ import com.xxxlin.jsgf.psi.JsgfRule
 import javax.swing.Icon
 
 class JsgfStructureAwareNavbar(
-    override val language: Language = JsgfLanguage.INSTANCE
+    override val language: Language = JSGFLanguage.INSTANCE
 ) : StructureAwareNavBarModelExtension() {
 
     override fun getPresentableText(obj: Any): String? {

@@ -6,7 +6,7 @@ class JsgfTokenType(
     debugName: String
 ) : IElementType(
     debugName,
-    JsgfLanguage.INSTANCE
+    JSGFLanguage.INSTANCE
 ) {
 
     override fun toString(): String {

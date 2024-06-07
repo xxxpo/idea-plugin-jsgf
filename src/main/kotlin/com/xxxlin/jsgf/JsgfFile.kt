@@ -6,14 +6,14 @@ import com.intellij.psi.FileViewProvider
 
 class JsgfFile(
     viewProvider: FileViewProvider
-) : PsiFileBase(viewProvider, JsgfLanguage.INSTANCE) {
+) : PsiFileBase(viewProvider, JSGFLanguage.INSTANCE) {
 
     override fun getFileType(): FileType {
         return JsgfFileType.INSTANCE
     }
 
     override fun toString(): String {
-        return "Jsgf File"
+        return "JSGF File"
     }
 
 }
