@@ -20,12 +20,12 @@ class JsgfRuleReference(
 
     override fun multiResolve(incompleteCode: Boolean): Array<ResolveResult> {
         val project = myElement.project
-        val ruleList = if (onlyThisFile) {
-            JsgfUtil.findRules(element.containingFile, ruleName)
+        val psiList = if (onlyThisFile) {
+            JsgfUtil.findDefRuleNameWrapper(element.containingFile, ruleName)
         } else {
-            JsgfUtil.findRules(project, ruleName)
+            JsgfUtil.findDefRuleNameWrapper(project, ruleName)
         }
-        return ruleList.map {
+        return psiList.map {
             PsiElementResolveResult(it)
         }.toTypedArray()
     }
@@ -37,15 +37,15 @@ class JsgfRuleReference(
     override fun getVariants(): Array<out Any> {
         println("getVariants")
         val project = myElement.project
-        val ruleList = JsgfUtil.findRules(project)
+        val psiList = JsgfUtil.findDefRuleNameWrapper(project)
         val variants: MutableList<LookupElement> = ArrayList()
-        for (rule in ruleList) {
-            if (rule.defRuleName?.isNotEmpty() == true) {
-                variants.add(
-                    LookupElementBuilder.create(rule).withIcon(JsgfIcons.FILE).withTypeText(rule.containingFile.name)
-                )
-            }
-        }
+//        for (rule in psiList) {
+//            if (rule.defRuleName?.isNotEmpty() == true) {
+//                variants.add(
+//                    LookupElementBuilder.create(rule).withIcon(JsgfIcons.FILE).withTypeText(rule.containingFile.name)
+//                )
+//            }
+//        }
         return variants.toTypedArray()
     }
 

@@ -5,6 +5,7 @@ import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReference
+import com.xxxlin.jsgf.psi.JsgfDefRuleNameWrapper
 import com.xxxlin.jsgf.psi.JsgfReferenceRuleName
 import com.xxxlin.jsgf.psi.JsgfRule
 import com.xxxlin.jsgf.psi.JsgfTypes
@@ -24,30 +25,6 @@ object JsgfPsiImplUtil {
     fun getValue(element: JsgfRule): String? {
         val valueNode = element.node.findChildByType(JsgfTypes.RULE_EXPANSION) ?: return null
         return valueNode.text.trim()
-    }
-
-    @JvmStatic
-    fun getName(element: JsgfRule): String {
-        val name = getDefRuleName(element) ?: ""
-        return name
-    }
-
-    @JvmStatic
-    fun setName(element: JsgfRule, newName: String): PsiElement {
-        val node = element.node.findChildByType(JsgfTypes.DEF_RULE_NAME_WRAPPER)
-        if (node != null) {
-            val referenceRuleName = JsgfElementFactory.createProperty(element.project, newName)
-            element.node.replaceChild(node, referenceRuleName.node)
-        }
-        return element
-    }
-
-    @JvmStatic
-    fun getNameIdentifier(element: JsgfRule): PsiElement? {
-        val node = element.node
-            .findChildByType(JsgfTypes.DEF_RULE_NAME_WRAPPER)
-            ?.findChildByType(JsgfTypes.DEF_RULE_NAME)
-        return node?.psi
     }
 
     /**
@@ -97,6 +74,28 @@ object JsgfPsiImplUtil {
         val text = element.text
         val textRange = TextRange(0, text.length)
         return JsgfRuleReference(element, textRange, true)
+    }
+
+    @JvmStatic
+    fun getName(element: JsgfDefRuleNameWrapper): String {
+        return element.text
+    }
+
+    @JvmStatic
+    fun setName(element: JsgfDefRuleNameWrapper, newName: String): PsiElement {
+        println("JsgfDefRuleNameWrapper setName $newName")
+        val node = element.node.findChildByType(JsgfTypes.DEF_RULE_NAME)
+        if (node != null) {
+            val psi = JsgfElementFactory.createDefRuleName(element.project, newName)
+            element.node.replaceChild(node, psi.node)
+        }
+        return element
+    }
+
+    @JvmStatic
+    fun getNameIdentifier(element: JsgfDefRuleNameWrapper): PsiElement? {
+        val node = element.node.findChildByType(JsgfTypes.DEF_RULE_NAME)
+        return node?.psi
     }
 
 }

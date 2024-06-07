@@ -63,12 +63,14 @@ rule_declarations ::= LINE_COMMENT | BLOCK_COMMENT | rule
 // private <vlCtrlDown> = (调低|减小|降低|减);
 rule ::= KEYWORD? def_rule_name_wrapper "=" rule_expansion ";"
 {
-  mixin="com.xxxlin.jsgf.JsgfNamedElementImpl"
-  implements="com.xxxlin.jsgf.JsgfNamedElement"
-  methods=[getDefRuleName getValue getName setName getNameIdentifier getPresentation]
+  methods=[getDefRuleName getValue getPresentation]
 }
 
-def_rule_name_wrapper ::= DEF_RULE_NAME
+def_rule_name_wrapper ::= DEF_RULE_NAME {
+  mixin="com.xxxlin.jsgf.JsgfNamedElementImpl"
+  implements="com.xxxlin.jsgf.JsgfNamedElement"
+  methods=[getName setName getNameIdentifier]
+}
 
 // slop_string 槽位文本 一|二|三|四[五|六|七]
 // SLOP_STRING_LITERAL 字面文本

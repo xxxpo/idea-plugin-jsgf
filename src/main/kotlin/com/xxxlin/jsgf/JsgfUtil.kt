@@ -7,6 +7,7 @@ import com.intellij.psi.PsiManager
 import com.intellij.psi.search.FileTypeIndex
 import com.intellij.psi.search.GlobalSearchScope
 import com.intellij.psi.tree.IElementType
+import com.xxxlin.jsgf.psi.JsgfDefRuleNameWrapper
 import com.xxxlin.jsgf.psi.JsgfRule
 import com.xxxlin.jsgf.psi.JsgfTypes
 
@@ -78,5 +79,31 @@ object JsgfUtil {
             }
         }
         return result
+    }
+
+    fun findDefRuleNameWrapper(e: PsiElement): List<JsgfDefRuleNameWrapper> {
+        return findByType(e, JsgfTypes.DEF_RULE_NAME_WRAPPER).map {
+            it.psi as JsgfDefRuleNameWrapper
+        }
+    }
+
+    fun findDefRuleNameWrapper(project: Project): List<JsgfDefRuleNameWrapper> {
+        val result = ArrayList<JsgfDefRuleNameWrapper>()
+        findAllJsgfFile(project).forEach { file ->
+            result.addAll(findDefRuleNameWrapper(file))
+        }
+        return result
+    }
+
+    fun findDefRuleNameWrapper(project: Project, ruleName: String): List<JsgfDefRuleNameWrapper> {
+        return findDefRuleNameWrapper(project).filter {
+            it.text == ruleName
+        }
+    }
+
+    fun findDefRuleNameWrapper(element: PsiElement, ruleName: String): List<JsgfDefRuleNameWrapper> {
+        return findDefRuleNameWrapper(element).filter {
+            it.text == ruleName
+        }
     }
 }
