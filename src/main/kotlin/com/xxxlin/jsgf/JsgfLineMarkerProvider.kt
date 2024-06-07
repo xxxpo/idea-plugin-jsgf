@@ -22,7 +22,7 @@ class JsgfLineMarkerProvider : RelatedItemLineMarkerProvider() {
 
         val literalExpression = element.getParent() as PsiLiteralExpression
         val value = literalExpression.value as? String? ?: return
-        if (!value.startsWith("<") && !value.endsWith(">")) {
+        if (!value.startsWith("<") || !value.endsWith(">")) {
             return
         }
 
