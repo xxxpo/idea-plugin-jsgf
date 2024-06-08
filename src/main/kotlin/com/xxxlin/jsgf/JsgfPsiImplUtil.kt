@@ -15,17 +15,22 @@ import javax.swing.Icon
 object JsgfPsiImplUtil {
 
     @JvmStatic
-    fun getDefRuleName(element: JsgfRule): String? {
-        val keyNode = element.node
+    fun getDefRuleName(element: JsgfRule): String {
+        return element.node
             .findChildByType(JsgfTypes.DEF_RULE_NAME_WRAPPER)
-            ?.findChildByType(JsgfTypes.DEF_RULE_NAME) ?: return null
-        return keyNode.text
+            ?.findChildByType(JsgfTypes.DEF_RULE_NAME)
+            ?.text ?: return ""
     }
 
     @JvmStatic
-    fun getValue(element: JsgfRule): String? {
-        val valueNode = element.node.findChildByType(JsgfTypes.RULE_EXPANSION) ?: return null
-        return valueNode.text.trim()
+    fun getValue(element: JsgfRule): String {
+        // fixme 字符串无法显示
+        return element.text.trim()
+    }
+
+    @JvmStatic
+    fun getModifier(element: JsgfRule): PsiElement? {
+        return element.node.findChildByType(JsgfTypes.MODIFIER)?.psi
     }
 
     /**
@@ -35,7 +40,7 @@ object JsgfPsiImplUtil {
     fun getPresentation(element: JsgfRule): ItemPresentation {
         return object : ItemPresentation {
             override fun getPresentableText(): String {
-                return element.defRuleName ?: ""
+                return element.defRuleName
             }
 
             override fun getLocationString(): String? {

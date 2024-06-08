@@ -20,7 +20,7 @@ class JsgfChooseByNameContributor : ChooseByNameContributorEx {
         LogUtil.log("ret size=${ruleList.size}")
         ruleList.forEach {
             val ruleName = it.defRuleName
-            if(!ruleName.isNullOrEmpty()) {
+            if(ruleName.isNotEmpty()) {
                 processor.process(ruleName)
             }
         }

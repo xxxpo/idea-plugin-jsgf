@@ -43,27 +43,27 @@ jsgfFile ::= document grammar_declarations import_declarations* rule_declaration
 
 
 // #JSGF V1.0 utf-8 en;
-document ::= "#JSGF" VERSION? CHAR_ENCODING? LOCALE? ";"
+document ::= KEYWORD VERSION? CHAR_ENCODING? LOCALE? ";"
 
 
 // grammar sampleTag;
 grammar_declarations  ::= LINE_COMMENT* BLOCK_COMMENT* grammar
-grammar ::= "grammar" GRAMMAR_NAME ";"
+grammar ::= KEYWORD GRAMMAR_NAME ";"
 
 
 // 导入
 // import <fullyQualifiedRuleName>;
 // import <fullGrammarName.*>;
 import_declarations ::= LINE_COMMENT* BLOCK_COMMENT* import
-import ::= "import" IMPORT_PACKAGE_NAME ";"
+import ::= KEYWORD IMPORT_PACKAGE_NAME ";"
 
 
 // 语法规则
 rule_declarations ::= LINE_COMMENT | BLOCK_COMMENT | rule
 // private <vlCtrlDown> = (调低|减小|降低|减);
-rule ::= KEYWORD? def_rule_name_wrapper "=" rule_expansion ";"
+rule ::= MODIFIER? def_rule_name_wrapper "=" rule_expansion ";"
 {
-  methods=[getDefRuleName getValue getPresentation]
+  methods=[getDefRuleName getValue getPresentation getModifier]
 }
 
 def_rule_name_wrapper ::= DEF_RULE_NAME {

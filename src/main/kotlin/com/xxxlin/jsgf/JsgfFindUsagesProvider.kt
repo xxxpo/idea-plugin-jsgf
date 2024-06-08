@@ -33,21 +33,21 @@ class JsgfFindUsagesProvider : FindUsagesProvider {
 
     override fun getType(element: PsiElement): String {
         if (element is JsgfRule) {
-            return element.defRuleName ?: ""
+            return element.defRuleName
         }
         return ""
     }
 
     override fun getDescriptiveName(element: PsiElement): String {
         if (element is JsgfRule) {
-            return element.value ?: ""
+            return element.value
         }
         return ""
     }
 
     override fun getNodeText(element: PsiElement, useFullName: Boolean): String {
         if (element is JsgfRule) {
-            return element.defRuleName ?: ""
+            return element.defRuleName
         }
         return ""
     }

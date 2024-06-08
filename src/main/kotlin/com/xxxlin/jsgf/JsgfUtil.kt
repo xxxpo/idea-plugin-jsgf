@@ -8,6 +8,7 @@ import com.intellij.psi.search.FileTypeIndex
 import com.intellij.psi.search.GlobalSearchScope
 import com.intellij.psi.tree.IElementType
 import com.xxxlin.jsgf.psi.JsgfDefRuleNameWrapper
+import com.xxxlin.jsgf.psi.JsgfReferenceRuleName
 import com.xxxlin.jsgf.psi.JsgfRule
 import com.xxxlin.jsgf.psi.JsgfTypes
 
@@ -27,6 +28,22 @@ object JsgfUtil {
         e.children.forEach {
             findByType(it, type, result)
         }
+    }
+
+    private fun hasByType(e: PsiElement, type: IElementType, filter: (PsiElement) -> Boolean): Boolean {
+        val node = e.node.findChildByType(type)
+        if (node != null) {
+            if (filter(node.psi)) {
+                return true
+            }
+        }
+
+        for (row in e.children) {
+            if (hasByType(row, type, filter)) {
+                return true
+            }
+        }
+        return false
     }
 
     fun findAllJsgfFile(project: Project): List<JsgfFile> {
@@ -81,6 +98,20 @@ object JsgfUtil {
         return result
     }
 
+    fun findRule(project: Project, filterRuleName: String): List<JsgfRule> {
+        val result = ArrayList<JsgfRule>()
+        findAllJsgfFile(project).forEach { file ->
+            findByType(file, JsgfTypes.RULE).map {
+                it.psi as JsgfRule
+            }.filter {
+                it.defRuleName == filterRuleName
+            }.forEach {
+                result.add(it)
+            }
+        }
+        return result
+    }
+
     fun findDefRuleNameWrapper(e: PsiElement): List<JsgfDefRuleNameWrapper> {
         return findByType(e, JsgfTypes.DEF_RULE_NAME_WRAPPER).map {
             it.psi as JsgfDefRuleNameWrapper
@@ -103,6 +134,18 @@ object JsgfUtil {
 
     fun findDefRuleNameWrapper(element: PsiElement, ruleName: String): List<JsgfDefRuleNameWrapper> {
         return findDefRuleNameWrapper(element).filter {
+            it.text == ruleName
+        }
+    }
+
+    fun hasRuleName(element: PsiElement, ruleName: String): Boolean {
+        return hasByType(element, JsgfTypes.REFERENCE_RULE_NAME) {
+            (it as JsgfReferenceRuleName).name == ruleName
+        }
+    }
+
+    fun hasDefRuleName(element: PsiElement, ruleName: String): Boolean {
+        return hasByType(element, JsgfTypes.DEF_RULE_NAME) {
             it.text == ruleName
         }
     }

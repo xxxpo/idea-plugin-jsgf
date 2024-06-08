@@ -92,7 +92,12 @@
         <!-- java字符串注解 -->
         <annotator
                 language="JAVA"
-                implementationClass="com.xxxlin.jsgf.JsgfRuleAnnotator"/>
+                implementationClass="com.xxxlin.jsgf.JavaAnnotator"/>
+
+        <!-- JSGF字符串注解 -->
+        <annotator
+                language="JSGF"
+                implementationClass="com.xxxlin.jsgf.JsgfAnnotator"/>
 
         <!-- 重构支持 -->
         <lang.refactoringSupport
@@ -113,6 +118,7 @@
                 language="JAVA"
                 implementation="com.xxxlin.jsgf.JsgfRuleReferenceContributor"/>
 
+        <!-- 线标 -->
         <codeInsight.lineMarkerProvider
                 language="JAVA"
                 implementationClass="com.xxxlin.jsgf.JsgfLineMarkerProvider"/>
