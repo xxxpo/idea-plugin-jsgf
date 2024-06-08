@@ -4,6 +4,8 @@ import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.codeInsight.lookup.LookupElementBuilder
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.*
+import com.xxxlin.jsgf.psi.JsgfTypes
+import com.xxxlin.utils.LogUtil
 
 /**
  * 提供或查找JSGF规则引用
@@ -35,7 +37,7 @@ class JsgfRuleReference(
     }
 
     override fun getVariants(): Array<out Any> {
-        println("getVariants")
+        LogUtil.log("getVariants")
         val project = myElement.project
         val psiList = JsgfUtil.findDefRuleNameWrapper(project)
         val variants: MutableList<LookupElement> = ArrayList()
@@ -47,6 +49,20 @@ class JsgfRuleReference(
 //            }
 //        }
         return variants.toTypedArray()
+    }
+
+    override fun handleElementRename(newElementName: String): PsiElement {
+        LogUtil.log("handleElementRename newElementName=$newElementName")
+        val identifier = PsiElementFactory
+            .getInstance(element.project)
+            .createIdentifier(newElementName)
+        LogUtil.log("handleElementRename newElementName new=${identifier.text}")
+        return identifier
+    }
+
+    override fun bindToElement(element: PsiElement): PsiElement {
+        LogUtil.log("handleElementRename bindToElement")
+        return super.bindToElement(element)
     }
 
 }

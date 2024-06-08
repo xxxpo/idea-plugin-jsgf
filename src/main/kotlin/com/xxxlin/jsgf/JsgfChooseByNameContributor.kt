@@ -6,6 +6,7 @@ import com.intellij.psi.search.GlobalSearchScope
 import com.intellij.util.Processor
 import com.intellij.util.indexing.FindSymbolParameters
 import com.intellij.util.indexing.IdFilter
+import com.xxxlin.utils.LogUtil
 
 class JsgfChooseByNameContributor : ChooseByNameContributorEx {
 
@@ -16,7 +17,7 @@ class JsgfChooseByNameContributor : ChooseByNameContributorEx {
     ) {
         val project = scope.project ?: return
         val ruleList = JsgfUtil.findRules(project)
-        println("ret size=${ruleList.size}")
+        LogUtil.log("ret size=${ruleList.size}")
         ruleList.forEach {
             val ruleName = it.defRuleName
             if(!ruleName.isNullOrEmpty()) {
@@ -30,7 +31,7 @@ class JsgfChooseByNameContributor : ChooseByNameContributorEx {
         processor: Processor<in NavigationItem>,
         parameters: FindSymbolParameters
     ) {
-        println("processElementsWithName name=$name")
+        LogUtil.log("processElementsWithName name=$name")
         JsgfUtil.findDefRuleName(parameters.project, name).map {
             it as NavigationItem
         }.forEach {

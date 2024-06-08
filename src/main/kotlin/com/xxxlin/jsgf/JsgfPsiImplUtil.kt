@@ -9,6 +9,7 @@ import com.xxxlin.jsgf.psi.JsgfDefRuleNameWrapper
 import com.xxxlin.jsgf.psi.JsgfReferenceRuleName
 import com.xxxlin.jsgf.psi.JsgfRule
 import com.xxxlin.jsgf.psi.JsgfTypes
+import com.xxxlin.utils.LogUtil
 import javax.swing.Icon
 
 object JsgfPsiImplUtil {
@@ -83,7 +84,7 @@ object JsgfPsiImplUtil {
 
     @JvmStatic
     fun setName(element: JsgfDefRuleNameWrapper, newName: String): PsiElement {
-        println("JsgfDefRuleNameWrapper setName $newName")
+        LogUtil.log("JsgfDefRuleNameWrapper setName $newName")
         val node = element.node.findChildByType(JsgfTypes.DEF_RULE_NAME)
         if (node != null) {
             val psi = JsgfElementFactory.createDefRuleName(element.project, newName)
