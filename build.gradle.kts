@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "com.xxxlin"
-version = "0.1.2"
+version = "0.1.3"
 
 val localProperty = Properties()
 localProperty.load(project.rootProject.file("local.properties").inputStream())
@@ -48,7 +48,7 @@ tasks {
     }
 
     patchPluginXml {
-        sinceBuild.set("202")
+        sinceBuild.set("203")
         untilBuild.set("242.*")
     }
 
