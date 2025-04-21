@@ -6,6 +6,6 @@ import javax.swing.Icon
 object JsgfIcons {
 
     @JvmStatic
-    val FILE: Icon = getIcon("/icons/jsgf.png", JsgfIcons::class.java)
+    val FILE: Icon = getIcon("/icons/jsgf.svg", JsgfIcons::class.java)
 
 }
