@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "com.xxxlin"
-version = "0.1.3"
+version = "0.1.4"
 
 val localProperty = Properties()
 localProperty.load(project.rootProject.file("local.properties").inputStream())
