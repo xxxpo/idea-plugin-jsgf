@@ -48,7 +48,7 @@ object JsgfUtil {
 
     fun findAllJsgfFile(project: Project): List<JsgfFile> {
         val result = ArrayList<JsgfFile>()
-        val virtualFiles = FileTypeIndex.getFiles(JsgfFileType.INSTANCE, GlobalSearchScope.allScope(project))
+        val virtualFiles = FileTypeIndex.getFiles(JsgfFileType.INSTANCE, GlobalSearchScope.projectScope(project))
         for (virtualFile in virtualFiles) {
             val file = PsiManager.getInstance(project).findFile(virtualFile) as JsgfFile? ?: continue
             result.add(file)
